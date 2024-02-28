@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import './CSS/Todo.css'
+import TodoItems from './TodoItems';
 
 let count = 0;
 const Todo = () => {
@@ -9,15 +10,21 @@ const Todo = () => {
       const inputRef = useRef(null);
     //Add button function saving text from the input field
     const add = () => {
-        setTodos([...todos,{no:count++, tex:inputRef.current.value,display:""}]);
-        //Clear input data
+        setTodos([...todos,{no:count++, text:inputRef.current.value,display:""}]);
+        //Clear input field data
         inputRef.current.value = "";
     }
-    // Display todos in console 
+    //Obtain data from local storage and store it user variable
         useEffect(()=>{
-            console.log(todos);
-        },[todos])
-
+                setTodos(JSON.parse(localStorage.getItem("todos")))
+        },[])
+    // Display todos in console and save in local storage 
+        useEffect(()=>{
+            setTimeout(()=>{
+                console.log(todos);
+                localStorage.setItem("todos",JSON.stringify(todos))
+            },100);
+         },[todos])
 
     return (
     <div className='todo'>
@@ -27,6 +34,9 @@ const Todo = () => {
          <div onClick={()=>{add()}} className='todo-add-btn'>ADD</div>
       </div>
       <div className='todo-list'>
+        {todos.map((item,index)=>{
+            return <TodoItems key={index} no={item.no} display= {item.display} text={item.text}/>
+      })}
       
       </div>      
     </div>
