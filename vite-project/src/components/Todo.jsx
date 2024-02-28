@@ -1,17 +1,30 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './CSS/Todo.css'
 
+let count = 0;
 const Todo = () => {
-
+ 
+    //Input function
       const [todos,setTodos] = useState([]);
       const inputRef = useRef(null);
-  
+    //Add button function saving text from the input field
+    const add = () => {
+        setTodos([...todos,{no:count++, tex:inputRef.current.value,display:""}]);
+        //Clear input data
+        inputRef.current.value = "";
+    }
+    // Display todos in console 
+        useEffect(()=>{
+            console.log(todos);
+        },[todos])
+
+
     return (
     <div className='todo'>
       <div className='todo-header'>To-Do List</div>
       <div className='todo-add'>
-         <input type='text' placeholder='Add your task' className='todo-input' />
-         <div className='todo-add-btn'>ADD</div>
+         <input ref={inputRef} type='text' placeholder='Add your task' className='todo-input' />
+         <div onClick={()=>{add()}} className='todo-add-btn'>ADD</div>
       </div>
       <div className='todo-list'>
       
