@@ -1,7 +1,12 @@
+import { useRef, useState } from 'react'
 import './CSS/Todo.css'
 
 const Todo = () => {
-  return (
+
+      const [todos,setTodos] = useState([]);
+      const inputRef = useRef(null);
+  
+    return (
     <div className='todo'>
       <div className='todo-header'>To-Do List</div>
       <div className='todo-add'>
