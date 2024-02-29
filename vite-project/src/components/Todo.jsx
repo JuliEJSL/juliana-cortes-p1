@@ -13,10 +13,12 @@ const Todo = () => {
         setTodos([...todos,{no:count++, text:inputRef.current.value,display:""}]);
         //Clear input field data
         inputRef.current.value = "";
+        localStorage.setItem("todos_count",count)
     }
     //Obtain data from local storage and store it user variable
         useEffect(()=>{
                 setTodos(JSON.parse(localStorage.getItem("todos")))
+                count = localStorage.getItem("todos_count");
         },[])
     // Display todos in console and save in local storage 
         useEffect(()=>{
