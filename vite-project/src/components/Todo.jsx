@@ -17,14 +17,14 @@ const Todo = () => {
     }
     //Obtain data from local storage and store it user variable
         useEffect(()=>{
-                setTodos(JSON.parse(localStorage.getItem("todos")))
+                setTodos(JSON.parse(localStorage.getItem("todos")));
                 count = localStorage.getItem("todos_count");
         },[])
     // Display todos in console and save in local storage 
         useEffect(()=>{
             setTimeout(()=>{
                 console.log(todos);
-                localStorage.setItem("todos",JSON.stringify(todos))
+                localStorage.setItem("todos",JSON.stringify(todos));
             },100);
          },[todos])
 
@@ -37,7 +37,7 @@ const Todo = () => {
       </div>
       <div className='todo-list'>
         {todos.map((item,index)=>{
-            return <TodoItems key={index} no={item.no} display= {item.display} text={item.text}/>
+            return <TodoItems key={index} setTodos={setTodos} no={item.no} display= {item.display} text={item.text}/>
       })}
       
       </div>      
